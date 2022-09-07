@@ -26,8 +26,13 @@ export const Homepage = () => {
         >
           {popularMovies.map((movie) => {
             return (
-              <div className="posterImage">
-                <img src="" alt="poster_img" />
+              <div className="posterImage" key={movie.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/original${
+                    movie && movie.backdrop_path
+                  }`}
+                  alt="poster_img"
+                />
               </div>
             );
             // <span>{movie.original_title}</span>;
