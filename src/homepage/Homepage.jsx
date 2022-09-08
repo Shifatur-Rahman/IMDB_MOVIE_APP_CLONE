@@ -2,6 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from "react-responsive-carousel";
+import { Link } from "react-router-dom";
+import { AiFillStar } from "react-icons/ai";
+import "./Homepage.css";
+import MovieList from "../components/movieList/MovieList";
 
 export const Homepage = () => {
   let [popularMovies, setPopularMovies] = useState([]);
@@ -26,18 +30,39 @@ export const Homepage = () => {
         >
           {popularMovies.map((movie) => {
             return (
-              <div className="posterImage" key={movie.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/original${
-                    movie && movie.backdrop_path
-                  }`}
-                  alt="poster_img"
-                />
-              </div>
+              <Link
+                style={{ textDecoration: "none", color: "white" }}
+                to={`/movie/${movie.id}`}
+              >
+                <div className="posterImage" key={movie.id}>
+                  <img
+                    src={`https://image.tmdb.org/t/p/original${
+                      movie && movie.backdrop_path
+                    }`}
+                    alt="poster_img"
+                  />
+                </div>
+
+                <div className="posterImage__overlay">
+                  <div className="posterImage__title">
+                    {movie ? movie.original_title : ""}
+                  </div>
+                  <div className="posterImage__runtime">
+                    {movie ? movie.release_date : ""}
+                    <span className="posterImage__rating">
+                      {movie ? movie.vote_average : ""}
+                      <AiFillStar className="starIcon" />
+                    </span>
+                  </div>
+                  <div className="posterImage__description">
+                    {movie ? movie.overview : ""}
+                  </div>
+                </div>
+              </Link>
             );
-            // <span>{movie.original_title}</span>;
           })}
         </Carousel>
+        <MovieList />
       </div>
     </>
   );
